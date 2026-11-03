@@ -1,0 +1,162 @@
+.crud-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #ffffff;
+}
+
+.crud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+h2, h3 {
+  margin: 0;
+  color: #e56056;
+}
+
+.search-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.alert {
+  background-color: rgba(229, 96, 86, 0.15);
+  border: 1px solid #e56056;
+  color: #e56056;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.crud-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.form-panel, .table-panel {
+  background-color: #141018;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+}
+
+.form-group {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-size: 0.85rem;
+  color: #a0a0a0;
+}
+
+.input-dark {
+  background-color: #0b090c;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-dark:focus {
+  border-color: #e56056;
+}
+
+.form-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 10px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #e56056;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #c94c44;
+}
+
+.btn-secondary {
+  background-color: #2a2a2a;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: #3a3a3a;
+}
+
+.dark-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #141018; 
+  color: #ffffff;
+}
+
+.dark-table th {
+  text-align: left;
+  color: #a0a0a0;
+  padding: 16px 8px;
+  border-bottom: 1px solid #2a2a2a;
+  font-size: 0.9rem;
+  background-color: #141018; 
+}
+
+.dark-table td {
+  padding: 16px 8px;
+  border-bottom: 1px solid #1f1a24;
+  color: #ffffff;
+  background-color: #141018; 
+}
+
+.id-cell {
+  color: #666;
+  font-family: monospace;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #a0a0a0;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.btn-text:hover {
+  color: #ffffff;
+}
+
+.btn-text.delete:hover {
+  color: #e56056;
+}
+
+.empty-state {
+  text-align: center;
+  color: #666;
+  padding: 32px 0 !important;
+}
