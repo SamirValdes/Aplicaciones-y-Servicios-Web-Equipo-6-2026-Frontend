@@ -1,0 +1,81 @@
+<div class="crud-container">
+  <header class="crud-header">
+    <h2>Gestión de Estudiantes</h2>
+    
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="idBusqueda" placeholder="Buscar por ID exacto..." class="input-dark">
+      <button (click)="buscar()" class="btn-primary">Buscar</button>
+      <button (click)="idBusqueda = ''; buscar()" class="btn-secondary">Limpiar</button>
+    </div>
+  </header>
+
+  @if (mensajeAlerta) {
+    <div class="alert">
+      {{ mensajeAlerta }}
+    </div>
+  }
+
+  <div class="crud-layout">
+    <!-- Panel del Formulario -->
+    <aside class="form-panel">
+      <h3>{{ idEdicion ? 'Editar Estudiante' : 'Nuevo Estudiante' }}</h3>
+      
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" [(ngModel)]="formulario.nombre" class="input-dark">
+      </div>
+
+      <div class="form-group">
+        <label>Programa Académico</label>
+        <input type="text" [(ngModel)]="formulario.programa" class="input-dark">
+      </div>
+
+      <div class="form-group">
+        <label>Semestre</label>
+        <input type="number" [(ngModel)]="formulario.semestre" class="input-dark" min="1" max="12">
+      </div>
+
+      <div class="form-actions">
+        <button (click)="guardar()" class="btn-primary">
+          {{ idEdicion ? 'Actualizar' : 'Guardar' }}
+        </button>
+        @if (idEdicion) {
+          <button (click)="limpiarFormulario()" class="btn-secondary">Cancelar</button>
+        }
+      </div>
+    </aside>
+
+    <!-- Panel de la Tabla -->
+    <section class="table-panel">
+      <table class="dark-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Programa</th>
+            <th>Semestre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (est of estudiantes; track est.id) {
+            <tr>
+              <td class="id-cell">{{ est.id }}</td>
+              <td>{{ est.nombre }}</td>
+              <td>{{ est.programa }}</td>
+              <td>{{ est.semestre }}</td>
+              <td class="actions-cell">
+                <button (click)="cargarEnFormulario(est)" class="btn-text">Editar</button>
+                <button (click)="eliminar(est.id)" class="btn-text delete">Eliminar</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="empty-state">No se encontraron estudiantes.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>

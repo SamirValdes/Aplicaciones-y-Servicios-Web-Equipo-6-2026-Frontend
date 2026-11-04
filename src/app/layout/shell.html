@@ -1,0 +1,16 @@
+<div class="layout-container">
+  <aside class="sidebar">
+    <h2 class="brand">API ITM</h2>
+    <nav class="nav-menu">
+      @for (item of menu; track item.ruta) {
+        <a [routerLink]="item.ruta" routerLinkActive="active-link" class="nav-link">
+          {{ item.etiqueta }}
+        </a>
+      }
+    </nav>
+  </aside>
+  
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
