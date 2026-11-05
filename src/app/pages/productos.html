@@ -1,0 +1,166 @@
+<div class="crud-container">
+  <header class="crud-header">
+    <div>
+      <h2>Gestión de Productos</h2>
+      <p>Consulta y administra los productos registrados en el backend.</p>
+    </div>
+
+    <div class="search-bar">
+      <label class="sr-only" for="busqueda-id">Identificador del producto</label>
+      <input
+        id="busqueda-id"
+        type="text"
+        [(ngModel)]="idBusqueda"
+        placeholder="Buscar por ID..."
+        class="input-dark"
+        (keyup.enter)="buscar()"
+      />
+      <button type="button" (click)="buscar()" class="btn-primary">Buscar</button>
+      <button type="button" (click)="limpiarBusqueda()" class="btn-secondary">Ver todos</button>
+    </div>
+  </header>
+
+  @if (mensaje) {
+    <div class="alert" [class.alert-success]="tipoMensaje === 'success'" role="status">
+      {{ mensaje }}
+    </div>
+  }
+
+  <div class="crud-layout">
+    <aside class="form-panel">
+      <h3>{{ idEdicion ? 'Editar producto' : 'Nuevo producto' }}</h3>
+
+      <form #formProducto="ngForm" (ngSubmit)="guardar(formProducto)" novalidate>
+        <div class="form-group">
+          <label for="nombre">Nombre *</label>
+          <input
+            id="nombre"
+            name="nombre"
+            type="text"
+            [(ngModel)]="formulario.nombre"
+            class="input-dark"
+            required
+            minlength="1"
+            maxlength="120"
+            #nombre="ngModel"
+          />
+          @if (nombre.invalid && nombre.touched) {
+            <span class="field-error">El nombre es requerido (máximo 120 caracteres).</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion">Descripción</label>
+          <textarea
+            id="descripcion"
+            name="descripcion"
+            [(ngModel)]="formulario.descripcion"
+            class="input-dark"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="precio">Precio *</label>
+          <input
+            id="precio"
+            name="precio"
+            type="number"
+            [(ngModel)]="formulario.precio"
+            class="input-dark"
+            required
+            step="any"
+            #precio="ngModel"
+          />
+          @if (precio.invalid && precio.touched) {
+            <span class="field-error">Ingrese un precio válido.</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="stock">Stock *</label>
+          <input
+            id="stock"
+            name="stock"
+            type="number"
+            [(ngModel)]="formulario.stock"
+            class="input-dark"
+            required
+            min="0"
+            step="1"
+            #stock="ngModel"
+          />
+          @if (stock.invalid && stock.touched) {
+            <span class="field-error">Ingrese un stock entero mayor o igual a cero.</span>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="guardando">
+            @if (guardando) {
+              Guardando...
+            } @else {
+              {{ idEdicion ? 'Actualizar' : 'Crear producto' }}
+            }
+          </button>
+          @if (idEdicion) {
+            <button type="button" class="btn-secondary" (click)="limpiarFormulario(formProducto)">
+              Cancelar
+            </button>
+          }
+        </div>
+      </form>
+    </aside>
+
+    <section class="table-panel" aria-label="Listado de productos">
+      <div class="table-scroll">
+        <table class="dark-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (cargando) {
+              <tr>
+                <td colspan="6" class="empty-state">Cargando productos...</td>
+              </tr>
+            } @else {
+              @for (producto of productos; track producto.id) {
+                <tr>
+                  <td class="id-cell">{{ producto.id }}</td>
+                  <td>{{ producto.nombre }}</td>
+                  <td>{{ producto.descripcion || '—' }}</td>
+                  <td>{{ producto.precio }}</td>
+                  <td>{{ producto.stock }}</td>
+                  <td class="actions-cell">
+                    <button type="button" (click)="cargarEnFormulario(producto)" class="btn-text">
+                      Editar
+                    </button>
+                    <button
+                      type="button"
+                      (click)="eliminar(producto.id, formProducto)"
+                      class="btn-text delete"
+                      [disabled]="eliminandoId !== null"
+                    >
+                      {{ eliminandoId === producto.id ? 'Eliminando...' : 'Eliminar' }}
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="6" class="empty-state">No se encontraron productos.</td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

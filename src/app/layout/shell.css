@@ -51,3 +51,31 @@
   padding: 40px;
   overflow-y: auto;
 }
+
+@media (max-width: 760px) {
+  .layout-container {
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 16px;
+    border-right: 0;
+    border-bottom: 1px solid #2a2a2a;
+  }
+
+  .brand {
+    margin-bottom: 16px;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    padding: 20px 16px;
+  }
+}
