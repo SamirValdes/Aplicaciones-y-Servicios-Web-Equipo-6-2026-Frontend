@@ -3,6 +3,7 @@
 ## Videos
 
 - Juan David Restrepo Alvarez — [Video entrega 4](https://youtu.be/GG-oP38mxD8)
+- Samir Alexander Valdes Martinez — [Video entrega 4](https://www.youtube.com/watch?v=pG5UXeVCkm4)
 
 Aplicación Angular para gestionar estudiantes y productos mediante una API REST. Los productos se consultan y modifican directamente en el backend; no se usan datos ficticios ni almacenamiento local.
 
@@ -59,3 +60,5 @@ Para compilar y ejecutar las pruebas configuradas:
 npm run build
 npm test
 ```
+# Intregando Frontend con Backend Samir Valdes Entidad Estudiante
+- Samir Alexander Valdes Martinez — [Video entrega 4](https://www.youtube.com/watch?v=pG5UXeVCkm4)
