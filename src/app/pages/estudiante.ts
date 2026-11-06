@@ -12,7 +12,7 @@ import { Estudiante, EstudianteCrear } from '../models/estudiante.model';
 })
 export class Estudiantes implements OnInit {
   private readonly estudianteService = inject(EstudianteService);
-  private readonly cdr = inject(ChangeDetectorRef); // <-- Inyectamos el detector de cambios
+  private readonly cdr = inject(ChangeDetectorRef); 
 
   estudiantes: Estudiante[] = [];
   formulario: EstudianteCrear = { nombre: '', programa: '', semestre: 1 };
@@ -29,7 +29,7 @@ export class Estudiantes implements OnInit {
       next: (datos) => {
         this.estudiantes = datos;
         this.mensajeAlerta = '';
-        this.cdr.detectChanges(); // <-- Forzamos el redibujado de la tabla
+        this.cdr.detectChanges(); 
       },
       error: () => {
         this.mensajeAlerta = 'Error de conexión con el backend';
@@ -48,7 +48,7 @@ export class Estudiantes implements OnInit {
       next: (estudiante) => {
         this.estudiantes = [estudiante];
         this.mensajeAlerta = '';
-        this.cdr.detectChanges(); // <-- Actualizamos tras la búsqueda
+        this.cdr.detectChanges(); 
       },
       error: () => {
         this.estudiantes = [];
@@ -61,7 +61,7 @@ export class Estudiantes implements OnInit {
   guardar() {
     if (this.idEdicion) {
       this.estudianteService.actualizar(this.idEdicion, this.formulario).subscribe(() => {
-        this.listarTodos(); // listarTodos ya incluye el detectChanges()
+        this.listarTodos(); 
         this.limpiarFormulario();
       });
     } else {
@@ -79,7 +79,7 @@ export class Estudiantes implements OnInit {
       programa: estudiante.programa, 
       semestre: estudiante.semestre 
     };
-    this.cdr.detectChanges(); // <-- Actualizamos para que los datos aparezcan en los inputs de inmediato
+    this.cdr.detectChanges(); 
   }
 
 eliminar(id: string) {
@@ -94,6 +94,6 @@ eliminar(id: string) {
     this.idEdicion = null;
     this.formulario = { nombre: '', programa: '', semestre: 1 };
     this.idBusqueda = ''; 
-    this.cdr.detectChanges(); // <-- Actualizamos tras limpiar
+    this.cdr.detectChanges(); 
   }
 }
