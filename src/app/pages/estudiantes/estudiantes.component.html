@@ -1,0 +1,100 @@
+﻿<div class="crud-container">
+  <div class="header-row">
+    <h1>Gestión de Estudiantes</h1>
+    <span *ngIf="ultimaOperacion" class="badge-status">
+      Último llamado HTTP: {{ ultimaOperacion }}
+    </span>
+  </div>
+
+  <!-- Mensajes de estado visibles en cada operacion -->
+  <div *ngIf="cargando" class="alert alert-info">
+    Comunicándose con el backend en http://localhost:8000/estudiantes...
+  </div>
+  <div *ngIf="mensajeError" class="alert alert-error">
+    <strong>Error:</strong> {{ mensajeError }}
+  </div>
+  <div *ngIf="mensajeExito" class="alert alert-success">
+    <strong>Respuesta OK:</strong> {{ mensajeExito }}
+  </div>
+
+  <!-- Buscador por ID (GET /recurso/{id}) -->
+  <div class="card search-bar">
+    <input
+      type="text"
+      [(ngModel)]="filtroId"
+      (keyup.enter)="buscarPorId()"
+      placeholder="Pega aquí un ID (UUID) o escribe uno inexistente para probar el 404..."
+    />
+    <button type="button" class="btn btn-primary" (click)="buscarPorId()" [disabled]="cargando">
+      Buscar por ID (GET)
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="cargarColeccion(true)" [disabled]="cargando">
+      Listar Todos (GET)
+    </button>
+  </div>
+
+  <!-- Formulario Crear (POST) / Editar (PUT) -->
+  <div class="card form-card" [class.editing-card]="editandoId">
+    <h3>{{ editandoId ? 'Modo Edición: Actualizar Estudiante (PUT)' : 'Crear Nuevo Estudiante (POST)' }}</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" [(ngModel)]="formulario.nombre" placeholder="Ej: Vilmar Rivas" />
+      </div>
+      <div class="form-group">
+        <label>Programa académico</label>
+        <input type="text" [(ngModel)]="formulario.programa" placeholder="Ej: Ingeniería de Sistemas" />
+      </div>
+      <div class="form-group">
+        <label>Semestre</label>
+        <input type="number" [(ngModel)]="formulario.semestre" min="1" max="12" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="btn btn-success" (click)="guardar()" [disabled]="cargando">
+        {{ editandoId ? 'Actualizar Estudiante (PUT)' : 'Crear Estudiante (POST)' }}
+      </button>
+      <button type="button" *ngIf="editandoId" class="btn btn-secondary" (click)="cancelarEdicion()">
+        Cancelar Edición
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de Resultados -->
+  <div class="card table-card">
+    <h3>Listado desde el Backend ({{ estudiantes.length }} registro{{ estudiantes.length === 1 ? '' : 's' }})</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID (UUID)</th>
+          <th>Nombre</th>
+          <th>Programa</th>
+          <th>Semestre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let est of estudiantes">
+          <td class="uuid-col">
+            <span>{{ est.id }}</span>
+            <button type="button" class="btn-copy" (click)="usarIdEnBuscador(est.id)" title="Enviar este ID al buscador">
+              Usar ID
+            </button>
+          </td>
+          <td>{{ est.nombre }}</td>
+          <td>{{ est.programa }}</td>
+          <td>{{ est.semestre }}</td>
+          <td class="actions-col">
+            <button type="button" class="btn btn-warning" (click)="seleccionarParaEditar(est)">Editar (PUT)</button>
+            <button type="button" class="btn btn-danger" (click)="eliminar(est)">Eliminar (DELETE)</button>
+          </td>
+        </tr>
+        <tr *ngIf="estudiantes.length === 0">
+          <td colspan="5" class="empty-row">
+            No hay registros para mostrar en la tabla.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
