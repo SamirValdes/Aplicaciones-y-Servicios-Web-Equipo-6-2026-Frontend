@@ -1,0 +1,70 @@
+﻿<div class="dark-page">
+  <h1 class="main-title">Gestión de Personas</h1>
+
+  <div class="crud-container">
+    <div class="form-section">
+      <h2>{{ modoEdicion ? 'Editar Persona' : 'Nueva Persona' }}</h2>
+      <form (ngSubmit)="guardarPersona()">
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" name="nombre" [(ngModel)]="personaActual.nombre" placeholder="Ej. Andrés Perea" required minlength="2" maxlength="100">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" [(ngModel)]="personaActual.email" placeholder="correo@ejemplo.com" required>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="text" name="telefono" [(ngModel)]="personaActual.telefono" placeholder="3000000000" maxlength="20">
+        </div>
+        <div class="form-group checkbox-group">
+          <label>¿Activo?</label>
+          <input type="checkbox" name="activo" [(ngModel)]="personaActual.activo">
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn-primary">{{ modoEdicion ? 'Actualizar' : 'Guardar' }}</button>
+          <button type="button" class="btn-secondary" (click)="limpiarFormulario()" *ngIf="modoEdicion">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-section">
+      <div class="table-header">
+        <h2>Lista de Personas</h2>
+        <input type="text" class="search-input" [(ngModel)]="terminoBusqueda" (keyup)="buscarPersonas()" placeholder="Buscar por ID, nombre, email...">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Activo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let persona of personasFiltradas">
+            <td>{{ persona.id }}</td>
+            <td>{{ persona.nombre }}</td>
+            <td>{{ persona.email }}</td>
+            <td>{{ persona.telefono || '-' }}</td>
+            <td>
+              <span class="badge" [ngClass]="persona.activo ? 'badge-active' : 'badge-inactive'">
+                {{ persona.activo ? 'Sí' : 'No' }}
+              </span>
+            </td>
+            <td class="acciones">
+              <button class="btn-edit" (click)="editarPersona(persona)">Editar</button>
+              <button class="btn-delete" (click)="eliminarPersona(persona.id)">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="personasFiltradas.length === 0">
+            <td colspan="6" class="empty-row">No se encontraron personas registradas.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

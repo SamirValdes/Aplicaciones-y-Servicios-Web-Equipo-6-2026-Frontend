@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -11,5 +11,6 @@ export class Shell {
   readonly menu = [
     { ruta: '/estudiantes', etiqueta: 'Estudiantes' },
     { ruta: '/productos', etiqueta: 'Productos' },
+    { ruta: '/personas', etiqueta: 'Personas' },
   ];
 }
