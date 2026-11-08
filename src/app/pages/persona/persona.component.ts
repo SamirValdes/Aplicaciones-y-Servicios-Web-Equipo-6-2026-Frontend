@@ -27,7 +27,6 @@ export class PersonaComponent implements OnInit {
     this.personaService.getPersonas().subscribe({
       next: (data) => {
         this.personas = data;
-        // La clave está aquí: al cargar la data, llenamos la tabla visible
         this.personasFiltradas = [...data]; 
       },
       error: (err) => console.error('Error al cargar personas:', err)
@@ -99,12 +98,19 @@ export class PersonaComponent implements OnInit {
       this.personasFiltradas = [...this.personas];
       return;
     }
-    this.personasFiltradas = this.personas.filter(p => 
-      (p.id !== null && p.id !== undefined && p.id.toString().includes(termino)) ||
-      (p.nombre && p.nombre.toLowerCase().includes(termino)) || 
-      (p.email && p.email.toLowerCase().includes(termino)) ||
-      (p.telefono && p.telefono.toLowerCase().includes(termino))
-    );
+
+    // Si el usuario escribe solo números, hacemos búsqueda exacta por ID
+    const esNumero = !isNaN(Number(termino));
+
+    if (esNumero) {
+        this.personasFiltradas = this.personas.filter(p => p.id === Number(termino));
+    } else {
+        // Si escribe texto, busca por nombre o correo
+        this.personasFiltradas = this.personas.filter(p => 
+            (p.nombre && p.nombre.toLowerCase().includes(termino)) || 
+            (p.email && p.email.toLowerCase().includes(termino))
+        );
+    }
   }
 
   limpiarFormulario() {
