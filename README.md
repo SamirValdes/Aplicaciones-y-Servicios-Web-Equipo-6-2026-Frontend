@@ -4,6 +4,7 @@
 
 - Juan David Restrepo Alvarez — [Video entrega 4](https://youtu.be/GG-oP38mxD8)
 - Samir Alexander Valdes Martinez — [Video entrega 4](https://youtu.be/-Sa6VeLjv-o)
+- VILMAR RIVAS PEREA - [VIDEO ENTREGA 4 ](https://youtu.be/fRgrKfKrI0Q?si=mVqDR4oxn1ByQc2v)
 
 Aplicación Angular para gestionar estudiantes y productos mediante una API REST. Los productos se consultan y modifican directamente en el backend; no se usan datos ficticios ni almacenamiento local.
 
