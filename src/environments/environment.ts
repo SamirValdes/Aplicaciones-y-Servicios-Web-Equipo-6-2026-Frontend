@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'http://localhost:8000'
+  apiUrl: 'https://aplicaciones-y-servicios-web-equipo-6.onrender.com'
 };
